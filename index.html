@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Online</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Minha Loja Online</h1>
+    </header>
+
+    <main>
+        <section id="produtos">
+            <h2>Produtos</h2>
+            <div class="produto">
+                <h3>Produto 1</h3>
+                <p>Descrição do Produto 1.</p>
+                <p>Preço: R$ 100,00</p>
+                <button onclick="comprar(100)">Comprar</button>
+            </div>
+            <div class="produto">
+                <h3>Produto 2</h3>
+                <p>Descrição do Produto 2.</p>
+                <p>Preço: R$ 200,00</p>
+                <button onclick="comprar(200)">Comprar</button>
+            </div>
+            <!-- Adicione mais produtos conforme necessário -->
+        </section>
+    </main>
+
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <script>
+        const mp = new MercadoPago('YOUR_PUBLIC_KEY', {
+            locale: 'pt-BR'
+        });
+
+        function comprar(preco) {
+            const checkout = mp.checkout({
+                preference: {
+                    items: [
+                        {
+                            title: 'Produto 1',
+                            unit_price: preco,
+                            quantity: 1,
+                        },
+                    ],
+                },
+                render: {
+                    container: '.checkout-btn', // Classe do botão de checkout
+                    label: 'Pagar', // Texto do botão
+                },
+            });
+        }
+    </script>
+
+    <footer>
+        <p>&copy; 2024 Minha Loja Online</p>
+    </footer>
+</body>
+
+</html>
